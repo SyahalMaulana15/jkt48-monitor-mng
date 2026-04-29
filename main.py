@@ -71,12 +71,12 @@ def heartbeat(sessions, run_count, last_hb):
     total = sum(len(s.get("session_members", [])) for s in sessions)
     avail = sum(1 for s in sessions for m in s.get("session_members", []) if m.get("quota", 0) > 0)
     telegram(
-        f"💓 <b>Laporan Berkala</b>\n\n"
-        f"🕐 {now.strftime('%Y-%m-%d %H:%M WIB')} | ⚡ Interval: {INTERVAL}s\n"
-        f"📊 Total: {total} | Tersedia: {avail} | Sold out: {total - avail}\n"
-        f"🔁 Berikutnya: {(now + timedelta(hours=HEARTBEAT_H)).strftime('%H:%M WIB')} | 📈 Cek: {run_count:,}x"
+        f" <b>Laporan Berkala</b>\n\n"
+        f" {now.strftime('%Y-%m-%d %H:%M WIB')} | ⚡ Interval: {INTERVAL}s\n"
+        f" Total: {total} | Tersedia: {avail} | Sold out: {total - avail}\n"
+        f" Berikutnya: {(now + timedelta(hours=HEARTBEAT_H)).strftime('%H:%M WIB')} | 📈 Cek: {run_count:,}x"
     )
-    print("  💓 Heartbeat terkirim")
+    print("   Heartbeat terkirim")
     return now
 
 def main():
@@ -87,12 +87,12 @@ def main():
         time.sleep(15)
 
     prev_quota = extract_quota(sessions)
-    print(f"  ✅ Data awal: {len(prev_quota)} slot | {sum(1 for v in prev_quota.values() if v > 0)} tersedia")
+    print(f"   Data awal: {len(prev_quota)} slot | {sum(1 for v in prev_quota.values() if v > 0)} tersedia")
 
     telegram(
-        f"✅ <b>JKT48 Monitor aktif!</b>\n"
-        f"🔔 Notif saat tiket <b>berkurang</b> (ada pembelian)\n"
-        f"⚡ Cek setiap <b>{INTERVAL} detik</b> | 🕐 {wib_str()}"
+        f" <b>JKT48 Monitor aktif!</b>\n"
+        f" Notif saat tiket <b>berkurang</b> (ada pembelian)\n"
+        f" Cek setiap <b>{INTERVAL} detik</b> | 🕐 {wib_str()}"
     )
 
     run_count, fail_count, last_hb = 0, 0, wib()
